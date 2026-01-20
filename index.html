@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayZone Booker | حجز أجهزة بلايستيشن🎮</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/sidebar.js"></script>
+
+    <style>
+        body { font-family: 'المطاعنه🦅 ', sans-serif; }
+        .announcement-bar {
+            background: #fbbf24; 
+            color: #1e3a8a;
+            text-align: center;
+            padding: 10px 0;
+            font-weight: bold;
+            font-size: 1rem;
+            border-bottom: 2px solid #d97706;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <custom-sidebar></custom-sidebar>
+    <custom-navbar></custom-navbar>
+
+    <div class="announcement-bar">
+        📢 ملاحظة: الحجز متاح أونلاين والدفع " كاش علي رقم { 01142822877 }" 
+    </div>
+
+    <main class="container mx-auto px-4 py-8">
+        
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-3xl shadow-lg overflow-hidden border p-4 transform hover:scale-105 transition">
+                <img src="https://huggingface.co/spaces/engssking/playzone-booker/resolve/main/images/2e5a5cc5-abe7-4a42-bc87-79bab3917a1d.jpg" class="w-full h-48 object-cover rounded-2xl mb-4">
+                <h3 class="text-xl font-bold mb-4 text-center">جهاز PS4 (1)</h3>
+                <button class="btn-book w-full bg-blue-600 text-white py-3 rounded-xl font-bold shadow-md hover:bg-blue-700 transition" data-name="PS4 (1)">حجز الجهاز</button>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-lg overflow-hidden border p-4 transform hover:scale-105 transition">
+                <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=600&q=80" class="w-full h-48 object-cover rounded-2xl mb-4">
+                <h3 class="text-xl font-bold mb-4 text-center">جهاز PS4 (2)</h3>
+                <button class="btn-book w-full bg-blue-600 text-white py-3 rounded-xl font-bold shadow-md hover:bg-blue-700 transition" data-name="PS4 (2)">حجز الجهاز</button>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-lg overflow-hidden border p-4 transform hover:scale-105 transition">
+                <img src="https://huggingface.co/spaces/engssking/playzone-booker/resolve/main/images/436632ee-c85b-42f6-8abe-39ff0844afac.jpg" class="w-full h-48 object-cover rounded-2xl mb-4">
+                <h3 class="text-xl font-bold mb-4 text-center">جهاز PS4 (3)</h3>
+                <button class="btn-book w-full bg-blue-600 text-white py-3 rounded-xl font-bold shadow-md hover:bg-blue-700 transition" data-name="PS4 (3)">حجز الجهاز</button>
+            </div>
+        </section>
+
+        <section class="mt-12">
+            <h3 class="text-2xl font-bold mb-6 text-gray-800 border-r-4 border-blue-600 pr-3">مواعيد محجوزة اليوم 🗓️</h3>
+            <div id="publicSchedule" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                </div>
+        </section>
+
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

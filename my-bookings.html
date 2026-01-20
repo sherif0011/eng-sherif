@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تفاصيل حجزك 🗓️ | PlayZone</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'المطاعنه 🦅', sans-serif; }
+        .animate-pulse-slow {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-2xl mx-auto">
+        
+        <div class="bg-red-600 text-white text-center p-4 mb-4 rounded-3xl shadow-lg border-b-4 border-red-800 animate-pulse-slow">
+            <p class="font-bold text-lg flex items-center justify-center gap-2">
+                <span>⚠️</span>
+               ❌ إذا أردت إلغاء الحجز، عليك الاتصال بإدارة المحل على رقم:
+                <a href="tel:01142822877" class="underline decoration-white hover:text-yellow-300">01142822877</a>
+            </p>
+        </div>
+
+        <div class="flex justify-between items-center mb-8 bg-white p-5 rounded-3xl shadow-sm border-r-8 border-yellow-500">
+            <h1 class="text-xl font-bold">🗓️ حجوزاتي الشخصية</h1>
+            <a href="index.html" class="bg-blue-600 text-white px-5 py-2 rounded-xl font-bold shadow-md hover:bg-blue-700 transition">عودة</a>
+        </div>
+
+        <div id="list" class="space-y-4 mb-8">
+            <p class="text-center py-10 text-gray-400">جاري التحميل...</p>
+        </div>
+
+        <div class="bg-red-700 text-white text-center p-8 mb-8 rounded-[2rem] shadow-2xl border-4 border-white transform hover:scale-[1.01] transition duration-300">
+            <div class="flex flex-col items-center gap-4">
+                <span class="text-5xl">🚫</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold leading-tight">
+                    تنبيه هام جداً: <br>
+                    إذا تم التأخر عن موعد الحجز يعتبر حجزك ملغي تماماً⚠️⚠️⚠️
+                </h2>
+                <p class="text-red-100 text-sm font-bold opacity-90">يرجى الحضور قبل الموعد بـ 5 دقائق</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://pfepcvvccgcznshqulhz.supabase.co'; 
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmZXBjdnZjY2djem5zaHF1bGh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4NjQxNjQsImV4cCI6MjA4NDQ0MDE2NH0.olTCdMWYUZ-TSzucoETKTVwBSiIPjX4U2UfbVGQbgfw';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function load() {
+            const list = document.getElementById('list');
+            const phone = localStorage.getItem('myPlayZonePhone');
+            if (!phone) { 
+                list.innerHTML = '<div class="bg-white p-10 rounded-3xl text-center shadow-sm"><p class="text-gray-500">لا توجد حجوزات مسجلة على هذا الجهاز.</p></div>'; 
+                return; 
+            }
+
+            const { data, error } = await supabaseClient
+                .from('bookings')
+                .select('*')
+                .eq('phone', phone)
+                .order('created_at', {ascending: false});
+
+            if (data && data.length > 0) {
+                list.innerHTML = '';
+                data.forEach(b => {
+                    list.innerHTML += `
+                    <div class="bg-white p-6 rounded-3xl shadow-lg border-r-8 border-blue-600 transform hover:scale-[1.02] transition">
+                        <h3 class="text-xl font-bold text-blue-800">${b.console} 🎮</h3>
+                        <div class="mt-3 space-y-1">
+                            <p class="text-gray-700 font-bold">الموعد: <span class="text-blue-600">${b.time}</span></p>
+                            <p class="text-gray-600">التاريخ: <span class="font-bold">${b.date}</span></p>
+                        </div>
+                    </div>`;
+                });
+            } else { 
+                list.innerHTML = '<div class="bg-white p-10 rounded-3xl text-center shadow-sm"><p class="text-gray-500">لا توجد حجوزات نشطة حالياً.</p></div>'; 
+            }
+        }
+        load();
+    </script>
+</body>
+</html>
